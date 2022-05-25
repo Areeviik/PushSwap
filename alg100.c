@@ -18,7 +18,6 @@ void replace_a(t_stack *s)
     int min_a = find_min_true_a(s);
     while(min_a > 0)
     {
-        // printf("stex\n");
         rotate(&s->a);
         write(1, "ra\n", 3);
         min_a--;
@@ -26,8 +25,7 @@ void replace_a(t_stack *s)
         int i = 0;
     while(i < s->size_a)
 	{
-		// printf("INITIAL A:%d ->true index  %d, -> index  %d, markup result->  %d\n", s->a->data, s->a->true_index, s->a->index, s->a->mp_result);
-    	s->a = s->a->next;
+		s->a = s->a->next;
 	    i++;
 	}
 
@@ -53,27 +51,21 @@ void        find_size(t_stack *s, int b_item, int a_item)
 
     if(s->size_b/2 > b_item && s->size_a/2 > a_item)
     {
-        // printf("a %d b %d |1|\n", a_item, b_item);
         if (a_item > b_item)
         {
             s->b->count_of_b = a_item +1;
             s->b->rr = b_item;
             s->b->ra = a_item - b_item;
-            // printf("rr %d\n", s->b->rr);
-            // printf("ra %d\n", s->b->ra);
         }
         else
         {
             s->b->count_of_b = b_item + 1;
             s->b->rr = a_item;
-            // printf("rr %d\n", s->b->rr);
             s->b->rb = b_item - a_item;
-            // printf("rb %d\n", s->b->rb);
         }
     }
     else if(s->size_b/2 <= b_item && s->size_a/2 <= a_item)
     {
-        // printf("a %d b %d |2|\n", a_item, b_item);
         int size_a = s->size_a - a_item;
         int size_b = s->size_b - b_item;
         if(size_a > size_b)
@@ -81,44 +73,32 @@ void        find_size(t_stack *s, int b_item, int a_item)
             s->b->count_of_b = size_a + 1;
             s->b->rrr = size_b;
             s->b->rra = size_a - size_b;
-            // printf("rrr %d\n", s->b->rrr);
-            // printf("rra %d\n", s->b->rra);
         }
         else
         {
             s->b->count_of_b = size_b + 1;
             s->b->rrr = size_a;
             s->b->rrb = size_b - size_a;
-            // printf("rrr %d\n", s->b->rrr);
-            // printf("rrb %d\n", s->b->rrb);
         }
     }
     else if(s->size_b/2 > b_item && s->size_a/2 <= a_item)
     {
-        // printf("a %d b %d |3|\n", a_item, b_item);
         s->b->count_of_b = s->size_a - a_item +  1 + b_item;
         s->b->rb = b_item;
         s->b->rra = s->size_a - a_item;
-        // printf("rb %d\n", s->b->rb);
-        // printf("rra %d\n", s->b->rra);
     }
     else if(s->size_b/2 <= b_item && s->size_a/2 > a_item)
     {
-        // printf("a %d b %d |4|\n", a_item, b_item);
         s->b->count_of_b = s->size_b - b_item + a_item + 1;
         s->b->ra = a_item;
         s->b->rrb = s->size_b - b_item;
-        // printf("|rrb| %d\n", s->b->rrb);
-        // printf("rb %d\n", s->b->rb);
     }
 }
 
 int       findtheplace(t_stack *s)
 {
-    // printf("STE EL\n");
     if(is_sorted(s) && s->size_b == 0)
         return 0;
-    // replace_a(s);
     trueindexingB(s);
     trueindexingA(s);
     int i = 0;
@@ -136,14 +116,12 @@ int       findtheplace(t_stack *s)
         {
             move_item = s->b->true_index;
             min_true = find_min_true_a(s);
-            // printf("true min:%d\n", min_true);
             find_size(s, move_item, min_true);
         }
         else if (s->b->index > max_el)
         {
             move_item = s->b->true_index;
             max_true = find_max_true_a(s);
-            // printf("true max:%d\n", max_true);
             find_size(s, move_item, max_true);
         }
         else
@@ -171,7 +149,7 @@ int       findtheplace(t_stack *s)
             j = 0;
             garnik = 0;
             move_item = s->b->true_index;
-            s->b->ayitexe = a_true;
+            s->b->loc_of_a = a_true;
             find_size(s, move_item, a_true);
         }
     s->b = s->b->next;
@@ -182,14 +160,6 @@ int       findtheplace(t_stack *s)
 
 void doFunctions(int minimum, t_stack *s, int j, t_commands *commands)
 {
-        // int k = 0;
-
-	    // while(k < s->size_b)
-	    // {
-	    // 	printf("B:%d ->true index  %d, -> index  %d, markup result->  %d - > count of b %d\n", s->b->data, s->b->true_index, s->b->index, s->b->mp_result, s->b->count_of_b);
-        // 	s->b = s->b->next;
-	    //     k++;
-	    // }
     j = 0;
     minimum = 0;
     if(commands->rrr)
@@ -246,13 +216,9 @@ void doFunctions(int minimum, t_stack *s, int j, t_commands *commands)
            commands->rrb--;
         }
     }
-
-    // if(j != 1)
     pa(s);
     write(1, "pa\n", 3);
-    // if(j != 1)
     findtheplace(s);
-    // replace_a(s);
 }
 
 void        legacy(t_stack *s)
@@ -358,16 +324,13 @@ void        pushtob(t_stack *s)
         int i = 0;
     while(i < s->size_a)
 	{
-		// printf("INITIAL A:%d ->true index  %d, -> index  %d, markup result->  %d\n", s->a->data, s->a->true_index, s->a->index, s->a->mp_result);
-    	s->a = s->a->next;
+		s->a = s->a->next;
 	    i++;
 	}
     	i = 0;
 	while(i < s->size_b)
 	{
-		// printf("B:%d ->true index  %d, -> index  %d, markup result->  %d - > count of b %d\n", s->b->data, s->b->true_index, s->b->index, s->b->mp_result, s->b->count_of_b);
-    	s->b = s->b->next;
+		s->b = s->b->next;
 	    i++;
 	}
-    // printf("|||%d|||", s->a->data);
 }

@@ -59,7 +59,6 @@ int	main(int argc, char **argv)
 	// }
 	// free_stack_a(&s);
 	// free_stack_b(&s);
-	// freen chmoranal, aranqnerum el
 	return (0);
 }
 

@@ -106,19 +106,6 @@ void	alg_4(t_stack *s)
 	pb(s);
 	write(1, "pb\n", 3);
 
-/////////////
-
-	// int m = 0;
-	// t_list *tmp = s->a;
-	// while(m < s->size_a)
-	// {
-	// 	printf("%d -> %d\n", tmp->data, tmp->index);
-    // 	tmp = tmp->next;
-	//     m++;
-	// }
-
-/////////////Karen
-
 	alg_3(s);
 	pa(s);
 	write(1, "pa\n", 3);

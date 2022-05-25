@@ -46,7 +46,7 @@ typedef struct		s_list
 	int				markup_head;
 	int				true_index;
 	int				flagik;
-	int				ayitexe;
+	int				loc_of_a;
 }					t_list;
 
 typedef struct 		s_stack

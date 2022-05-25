@@ -70,7 +70,6 @@ int     markup(t_stack *s)
         ++i;
     }
     list->count = tmp_count;
-    //  printf("s->count in markup is %d\n", s->a->count);
     return(mp_head);
 }
 
@@ -99,6 +98,5 @@ void     markup_bool(t_stack *s)
         else
             list->mp_result = 0;
         list = list->next;
-        // printf("s->count in markup_bool is %d\n", s->a->count);
     }
 }
